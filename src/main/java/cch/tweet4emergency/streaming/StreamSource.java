@@ -2,7 +2,10 @@ package cch.tweet4emergency.streaming;
 
 public interface StreamSource<T> {
 
-    T stream() throws InterruptedException;
+    T streamData();
+
+    void startStreaming();
 
     void stopStreaming();
+
 }
