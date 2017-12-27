@@ -15,16 +15,16 @@ import static cch.tweet4emergency.model.GeoLocationAccuracy.HIGH;
 import static cch.tweet4emergency.model.GeoLocationAccuracy.LOW;
 import static cch.tweet4emergency.model.GeoLocationAccuracy.MEDIUM;
 
-public class EarthquakeRelatedStatus implements Serializable {
+public class EarthquakeRelatedInfo implements Serializable {
     private final String content;
     private final String owner;
     private final Date date;
     private final Optional<GeoLocation> tweetGeoLocation;
     private final Optional<GeoLocation> countryGeoLocation;
     private GeoLocationAccuracy geoLocationAccuracy;
-    private boolean plausibility;
+    private Sentiment sentiment = Sentiment.NEUTRAL;
 
-    public EarthquakeRelatedStatus(Status status) {
+    public EarthquakeRelatedInfo(Status status) {
         this.content = status.getText();
         this.owner = status.getUser().getName();
         this.date = status.getCreatedAt();
@@ -57,12 +57,12 @@ public class EarthquakeRelatedStatus implements Serializable {
         return this.geoLocationAccuracy;
     }
 
-    public boolean isPlausible() {
-        return plausibility;
+    public Sentiment getSentiment() {
+        return sentiment;
     }
 
-    public void setPlausibility(boolean value) {
-        this.plausibility = value;
+    public void setSentiment(Sentiment sentiment) {
+        this.sentiment = sentiment;
     }
 
     private GeoLocation findCentre(Place place) {
@@ -98,14 +98,14 @@ public class EarthquakeRelatedStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "EarthquakeRelatedStatus{" +
+        return "EarthquakeRelatedInfo{" +
                 "content='" + content + '\'' +
                 ", owner='" + owner + '\'' +
                 ", date=" + date +
                 ", tweetGeoLocation=" + tweetGeoLocation +
                 ", countryGeoLocation=" + countryGeoLocation +
                 ", geoLocationAccuracy=" + geoLocationAccuracy +
-                ", plausibility=" + plausibility +
+                ", sentiment=" + sentiment +
                 '}';
     }
 }

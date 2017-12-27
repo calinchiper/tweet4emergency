@@ -1,6 +1,7 @@
 package cch.tweet4emergency;
 
-import cch.tweet4emergency.service.publisher.Publisher;
+
+import cch.tweet4emergency.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,16 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    Publisher publisher;
+    Producer producer;
+
 
     @GetMapping
     public String test()  {
-        new Thread(() -> run()).start();
+        new Thread(() -> producer.produce()).start();
         return "asd";
     }
 
-    private void run() {
-        publisher.publish();
-    }
 
 }
