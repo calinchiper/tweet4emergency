@@ -1,13 +1,13 @@
 package cch.tweet4emergency.producer;
 
 
-import cch.tweet4emergency.model.EarthquakeRelatedInfo;
 import cch.tweet4emergency.streaming.Streaming;
 import org.springframework.stereotype.Service;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 import twitter4j.FilterQuery;
 import twitter4j.Status;
+
 
 @Service
 public class TweetProducer implements Producer {

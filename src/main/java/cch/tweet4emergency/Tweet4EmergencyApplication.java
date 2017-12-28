@@ -2,6 +2,7 @@ package cch.tweet4emergency;
 
 import cch.tweet4emergency.consumer.EarthquakeRelatedInfoFactoryConsumer;
 import cch.tweet4emergency.consumer.SemanticAnalysisServiceConsumer;
+import cch.tweet4emergency.websocket.StreamingSocketHandler;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,6 +34,9 @@ public class Tweet4EmergencyApplication implements CommandLineRunner {
 	@Autowired
 	private SemanticAnalysisServiceConsumer semanticAnalysisService;
 
+	@Autowired
+	private StreamingSocketHandler streamingSocketHandler;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(Tweet4EmergencyApplication.class, args);
@@ -42,6 +46,7 @@ public class Tweet4EmergencyApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		eventBus.on($("earthquakeRelatedInfoFactory"), earthquakeRelatedInfoFactory);
 		eventBus.on($("semanticAnalysisService"), semanticAnalysisService);
+		eventBus.on($("websocket"), streamingSocketHandler);
 	}
 
 	@Bean

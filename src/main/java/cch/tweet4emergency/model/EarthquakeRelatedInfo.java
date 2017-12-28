@@ -1,5 +1,7 @@
 package cch.tweet4emergency.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import twitter4j.GeoLocation;
 import twitter4j.Place;
 import twitter4j.Status;
@@ -107,5 +109,14 @@ public class EarthquakeRelatedInfo implements Serializable {
                 ", geoLocationAccuracy=" + geoLocationAccuracy +
                 ", sentiment=" + sentiment +
                 '}';
+    }
+
+    public String toJsonText() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "{}";
+        }
     }
 }

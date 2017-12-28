@@ -24,9 +24,7 @@ public class SemanticAnalysisServiceConsumer implements Consumer<Event<Earthquak
     @Override
     public void accept(Event<EarthquakeRelatedInfo> earthquakeRelatedInfoEvent) {
         EarthquakeRelatedInfo info = earthquakeRelatedInfoEvent.getData();
-        info.setSentiment(
-                semanticAnalysisService.analyze(info)
-        );
-        System.out.println(info.getSentiment());
+        info.setSentiment(semanticAnalysisService.analyze(info));
+        eventBus.notify("websocket", Event.wrap(info));
     }
 }
