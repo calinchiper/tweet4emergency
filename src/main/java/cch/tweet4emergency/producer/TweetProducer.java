@@ -25,6 +25,11 @@ public class TweetProducer implements Producer {
         streaming.start();
     }
 
+    @Override
+    public void stopProducing() {
+        streaming.stop();
+    }
+
     private void notifyEventBus(Status status) {
         eventBus.notify("earthquakeRelatedInfoFactory", Event.wrap(status));
     }

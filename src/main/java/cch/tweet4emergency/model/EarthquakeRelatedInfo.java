@@ -7,6 +7,7 @@ import twitter4j.Place;
 import twitter4j.Status;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -43,8 +44,8 @@ public class EarthquakeRelatedInfo implements Serializable {
         return this.owner;
     }
 
-    public Date getDate() {
-        return this.date;
+    public String getDate() {
+        return new SimpleDateFormat("MM/dd/yyyy").format(date);
     }
 
     public GeoLocation getTweetGeoLocation() {

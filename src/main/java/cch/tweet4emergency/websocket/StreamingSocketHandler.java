@@ -35,7 +35,6 @@ public class StreamingSocketHandler extends TextWebSocketHandler implements Cons
     @Override
     public void accept(Event<EarthquakeRelatedInfo> earthquakeRelatedInfoEvent) {
         EarthquakeRelatedInfo info = earthquakeRelatedInfoEvent.getData();
-        System.out.println(info.toJsonText());
         sendStreamingData(info.toJsonText());
     }
 
@@ -55,6 +54,8 @@ public class StreamingSocketHandler extends TextWebSocketHandler implements Cons
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        System.out.println("Connection closed");
+        producer.stopProducing();
         sessions.remove(session);
     }
 }

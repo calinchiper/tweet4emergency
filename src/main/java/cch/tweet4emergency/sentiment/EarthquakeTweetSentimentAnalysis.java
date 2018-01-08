@@ -41,12 +41,7 @@ public class EarthquakeTweetSentimentAnalysis implements SentimentAnalysis<Senti
             }
         }
 
-        //This logic must be improved
-        if (containsEarthquakeCrisisKeyWords(content)) {
-            return getSentiment(mainSentimentValue - 1);
-        } else {
-            return getSentiment(mainSentimentValue);
-        }
+        return getSentiment(mainSentimentValue);
     }
 
     private Sentiment getSentiment(int sentimentValue) {
@@ -66,10 +61,11 @@ public class EarthquakeTweetSentimentAnalysis implements SentimentAnalysis<Senti
         }
     }
 
-    private boolean containsEarthquakeCrisisKeyWords(String content) {
-        return Stream.of("OMG", "HELP", "SURVIVED", "FIND", "SAVE ME")
-                .anyMatch(word -> content.toUpperCase().contains(word));
-    }
+    //TODO: Apply Levenstein distance between the special words and the words from the sentence
+//    private boolean containsEarthquakeCrisisKeyWords(String content) {
+//        return Stream.of("OMG", "HELP", "SURVIVED", "FIND", "SAVE ME", "SOS")
+//                .anyMatch(word -> content.toUpperCase().contains(word));
+//    }
 
 
 }

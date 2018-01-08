@@ -29,9 +29,10 @@ public class TwitterStreaming implements Streaming<Status, FilterQuery> {
 
     @Override
     public void stop() {
-        twitterStream.clearListeners();
         twitterStream.cleanUp();
+        twitterStream.clearListeners();
         twitterStream.shutdown();
+
     }
 
     @Override
