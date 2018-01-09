@@ -1,9 +1,7 @@
 package cch.tweet4emergency.model;
 
-public enum Sentiment {
-    VERY_POSITIVE,
+public enum Certitude {
     POSITIVE,
     NEUTRAL,
     NEGATIVE,
-    VERY_NEGATIVE
 }

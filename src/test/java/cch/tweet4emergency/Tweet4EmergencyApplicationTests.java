@@ -1,33 +1,54 @@
 package cch.tweet4emergency;
 
-
-import cch.tweet4emergency.sentiment.EarthquakeTweetSentimentAnalysis;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.util.CoreMap;
+import opennlp.tools.doccat.DoccatModel;
+import opennlp.tools.doccat.DocumentCategorizerME;
+import opennlp.tools.doccat.DocumentSampleStream;
+import opennlp.tools.util.ObjectStream;
+import opennlp.tools.util.PlainTextByLineStream;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.stream.Collectors;
+import org.springframework.core.io.ClassPathResource;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import java.io.*;
+
+
 public class Tweet4EmergencyApplicationTests {
+   DoccatModel model;
 
    @Test
-    void test() {
+   public void test() throws FileNotFoundException {
+      InputStream dataIn = null;
+      try {
+         dataIn = new FileInputStream(new ClassPathResource("tweets.txt").getFile().getAbsolutePath());
+         ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
+         ObjectStream sampleStream = new DocumentSampleStream(lineStream);
+         // Specifies the minimum number of times a feature must be seen
+         int cutoff = 2;
+         int trainingIterations = 30;
+         model = DocumentCategorizerME.train("en", sampleStream, cutoff,
+                 trainingIterations);
+      } catch (IOException e) {
+         e.printStackTrace();
+      } finally {
+         if (dataIn != null) {
+            try {
+               dataIn.close();
+            } catch (IOException e) {
+               e.printStackTrace();
+            }
+         }
+      }
 
+      String tweet = "Earthquakes are fun";
+      DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
+      double[] outcomes = myCategorizer.categorize(tweet);
+      String category = myCategorizer.getBestCategory(outcomes);
+
+      if (category.equalsIgnoreCase("1")) {
+         System.out.println("Earthquake detection ");
+      } else {
+         System.out.println("False alarm :( ");
+      }
    }
 
 

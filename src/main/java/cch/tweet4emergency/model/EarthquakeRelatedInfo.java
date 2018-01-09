@@ -19,13 +19,13 @@ import static cch.tweet4emergency.model.GeoLocationAccuracy.LOW;
 import static cch.tweet4emergency.model.GeoLocationAccuracy.MEDIUM;
 
 public class EarthquakeRelatedInfo implements Serializable {
-    private final String content;
     private final String owner;
+    private final String content;
     private final Date date;
     private final Optional<GeoLocation> tweetGeoLocation;
     private final Optional<GeoLocation> countryGeoLocation;
     private GeoLocationAccuracy geoLocationAccuracy;
-    private Sentiment sentiment = Sentiment.NEUTRAL;
+    private Certitude certitude = Certitude.NEUTRAL;
 
     public EarthquakeRelatedInfo(Status status) {
         this.content = status.getText();
@@ -60,12 +60,12 @@ public class EarthquakeRelatedInfo implements Serializable {
         return this.geoLocationAccuracy;
     }
 
-    public Sentiment getSentiment() {
-        return sentiment;
+    public Certitude getCertitude() {
+        return certitude;
     }
 
-    public void setSentiment(Sentiment sentiment) {
-        this.sentiment = sentiment;
+    public void setCertitude(Certitude certitude) {
+        this.certitude = certitude;
     }
 
     private GeoLocation findCentre(Place place) {
@@ -108,7 +108,7 @@ public class EarthquakeRelatedInfo implements Serializable {
                 ", tweetGeoLocation=" + tweetGeoLocation +
                 ", countryGeoLocation=" + countryGeoLocation +
                 ", geoLocationAccuracy=" + geoLocationAccuracy +
-                ", sentiment=" + sentiment +
+                ", certitude=" + certitude +
                 '}';
     }
 

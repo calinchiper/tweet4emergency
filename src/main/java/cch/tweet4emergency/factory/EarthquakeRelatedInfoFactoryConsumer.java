@@ -1,4 +1,4 @@
-package cch.tweet4emergency.consumer;
+package cch.tweet4emergency.factory;
 
 import cch.tweet4emergency.model.EarthquakeRelatedInfo;
 import cch.tweet4emergency.service.factory.EarthquakeRelatedInfoFactory;
@@ -24,6 +24,6 @@ public class EarthquakeRelatedInfoFactoryConsumer implements Consumer<Event<Stat
     public void accept(Event<Status> statusEvent) {
         Status rawStatus = statusEvent.getData();
         EarthquakeRelatedInfo info = earthquakeRelatedInfoFactory.extract(rawStatus);
-        eventBus.notify("semanticAnalysisService", Event.wrap(info));
+        eventBus.notify("classification", Event.wrap(info));
     }
 }
