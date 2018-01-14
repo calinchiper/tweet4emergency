@@ -1,7 +1,6 @@
 package cch.tweet4emergency.factory;
 
 import cch.tweet4emergency.model.EarthquakeRelatedInfo;
-import cch.tweet4emergency.service.factory.EarthquakeRelatedInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.bus.Event;

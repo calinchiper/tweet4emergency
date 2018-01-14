@@ -1,4 +1,4 @@
-package cch.tweet4emergency.service.factory;
+package cch.tweet4emergency.factory;
 
 import cch.tweet4emergency.model.EarthquakeRelatedInfo;
 import org.springframework.stereotype.Service;

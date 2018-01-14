@@ -36,7 +36,6 @@ public class StreamingSocketHandler extends TextWebSocketHandler implements Cons
     public void accept(Event<EarthquakeRelatedInfo> earthquakeRelatedInfoEvent) {
         EarthquakeRelatedInfo info = earthquakeRelatedInfoEvent.getData();
         sendStreamingData(info.toJsonText());
-        System.out.println("[ " + info.getContent() + " ]");
     }
 
     private void sendStreamingData(String data) {

@@ -2,9 +2,7 @@ package cch.tweet4emergency;
 
 import cch.tweet4emergency.factory.EarthquakeRelatedInfoFactoryConsumer;
 import cch.tweet4emergency.classification.TweetClassificationConsumer;
-import cch.tweet4emergency.classification.OpenNLPTrainedModel;
 import cch.tweet4emergency.websocket.StreamingSocketHandler;
-import opennlp.tools.doccat.DoccatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,11 +10,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import reactor.Environment;
 import reactor.bus.EventBus;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static reactor.bus.selector.Selectors.$;
 
@@ -64,8 +68,8 @@ public class Tweet4EmergencyApplication implements CommandLineRunner {
     }
 
     @Bean
-    DoccatModel model() {
-        return new OpenNLPTrainedModel("tweets.txt", 30).get();
+    String trainingData() {
+        return "tweets.txt";
     }
 
 }
