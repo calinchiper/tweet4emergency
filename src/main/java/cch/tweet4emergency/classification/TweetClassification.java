@@ -37,10 +37,8 @@ public class TweetClassification {
         InputStream inputStream = null;
         try {
              inputStream = new FileInputStream(
-                    new File(
-                            new ClassPathResource(trainingDataFilePath).getFile().getAbsolutePath()
-                    )
-            );
+                    new File(new ClassPathResource(trainingDataFilePath).getFile().getAbsolutePath())
+             );
 
             ObjectStream<String> lineSteam = new PlainTextByLineStream(inputStream, "UTF-8");
             ObjectStream<DocumentSample> sample = new DocumentSampleStream(lineSteam);

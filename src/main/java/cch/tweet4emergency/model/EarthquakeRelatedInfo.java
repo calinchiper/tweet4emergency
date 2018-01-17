@@ -6,6 +6,7 @@ import twitter4j.GeoLocation;
 import twitter4j.Place;
 import twitter4j.Status;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -18,14 +19,18 @@ import static cch.tweet4emergency.model.GeoLocationAccuracy.HIGH;
 import static cch.tweet4emergency.model.GeoLocationAccuracy.LOW;
 import static cch.tweet4emergency.model.GeoLocationAccuracy.MEDIUM;
 
+@Entity
 public class EarthquakeRelatedInfo implements Serializable {
-    private final String owner;
-    private final String content;
-    private final Date date;
-    private final Optional<GeoLocation> tweetGeoLocation;
-    private final Optional<GeoLocation> countryGeoLocation;
-    private GeoLocationAccuracy geoLocationAccuracy;
-    private Certitude certitude = Certitude.NEUTRAL;
+    @Id
+    @GeneratedValue
+    @Column private long id;
+    @Column private final String owner;
+    @Column private final String content;
+    @Column private final Date date;
+    @Transient private final Optional<GeoLocation> tweetGeoLocation;
+    @Transient private final Optional<GeoLocation> countryGeoLocation;
+    @Column private GeoLocationAccuracy geoLocationAccuracy;
+    @Column private Certitude certitude = Certitude.NEUTRAL;
 
     public EarthquakeRelatedInfo(Status status) {
         this.content = status.getText();
@@ -119,5 +124,13 @@ public class EarthquakeRelatedInfo implements Serializable {
         } catch (JsonProcessingException e) {
             return "{}";
         }
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
