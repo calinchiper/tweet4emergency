@@ -2,6 +2,7 @@ package cch.tweet4emergency;
 
 import cch.tweet4emergency.factory.EarthquakeRelatedInfoFactoryConsumer;
 import cch.tweet4emergency.classification.TweetClassificationConsumer;
+import cch.tweet4emergency.repository.EarthRelatedInfoRepositoryConsumer;
 import cch.tweet4emergency.websocket.StreamingSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -41,6 +42,9 @@ public class Tweet4EmergencyApplication implements CommandLineRunner {
     @Autowired
     private StreamingSocketHandler streamingSocketHandler;
 
+    @Autowired
+    private EarthRelatedInfoRepositoryConsumer repository;
+
     public static void main(String[] args) {
         SpringApplication.run(Tweet4EmergencyApplication.class, args);
     }
@@ -51,6 +55,7 @@ public class Tweet4EmergencyApplication implements CommandLineRunner {
         eventBus.on($("earthquakeRelatedInfoFactory"), earthquakeRelatedInfoFactory);
         eventBus.on($("classification"), tweetClassificationConsumer);
         eventBus.on($("websocket"), streamingSocketHandler);
+        eventBus.on($("repository"), repository);
     }
 
     @Bean

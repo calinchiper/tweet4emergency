@@ -43,7 +43,7 @@ public class TweetClassification {
             ObjectStream<String> lineSteam = new PlainTextByLineStream(inputStream, "UTF-8");
             ObjectStream<DocumentSample> sample = new DocumentSampleStream(lineSteam);
 
-            model = DocumentCategorizerME.train("en", sample, 2, 30);
+            model = DocumentCategorizerME.train("en", sample, 2, 100);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

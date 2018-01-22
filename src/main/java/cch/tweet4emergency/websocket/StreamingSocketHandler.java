@@ -2,6 +2,7 @@ package cch.tweet4emergency.websocket;
 
 import cch.tweet4emergency.model.EarthquakeRelatedInfo;
 import cch.tweet4emergency.producer.Producer;
+import javafx.collections.ObservableArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
@@ -12,7 +13,10 @@ import reactor.bus.Event;
 import reactor.fn.Consumer;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
@@ -36,6 +40,8 @@ public class StreamingSocketHandler extends TextWebSocketHandler implements Cons
     public void accept(Event<EarthquakeRelatedInfo> earthquakeRelatedInfoEvent) {
         EarthquakeRelatedInfo info = earthquakeRelatedInfoEvent.getData();
         sendStreamingData(info.toJsonText());
+        //eventBus.notify("repository", Event.wrap(info));
+
     }
 
     private void sendStreamingData(String data) {

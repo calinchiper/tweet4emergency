@@ -14,7 +14,6 @@ import twitter4j.Status;
 
 
 import java.io.*;
-import java.util.Arrays;
 
 
 public class Tweet4EmergencyApplicationTests {
